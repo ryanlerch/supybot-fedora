@@ -429,7 +429,7 @@ class Fedora(callbacks.Plugin):
                 yml = yaml.load(req.text)
                 if 'bugzilla_contact' in yml:
                     lines = []
-                    for k, v in list(yml['bugzilla_contact'].items()):
+                    for k, v in yml['bugzilla_contact'].items():
                         lines.append('%s: %s' % (ircutils.bold(k), v))
                     resp += ' - ' + '; '.join(lines)
             except yaml.scanner.ScannerError:
@@ -470,7 +470,7 @@ class Fedora(callbacks.Plugin):
         addresses for a match."""
         find_name = to_unicode(find_name)
         matches = []
-        for entry in list(self.faslist.keys()):
+        for entry in self.faslist:
             if entry.find(find_name.lower()) != -1:
                 matches.append(entry)
         if len(matches) == 0:
@@ -820,14 +820,14 @@ class Fedora(callbacks.Plugin):
             if data:
                 data.close()
 
-        inc = len([v for v in list(votes.values()) if v == 1])
-        dec = len([v for v in list(votes.values()) if v == -1])
+        inc = len([v for v in votes.values() if v == 1])
+        dec = len([v for v in votes.values() if v == -1])
         total = inc - dec
 
         alltime_inc = alltime_dec = 0
         for release in alltime:
-            alltime_inc += len([v for v in list(release.values()) if v == 1])
-            alltime_dec += len([v for v in list(release.values()) if v == -1])
+            alltime_inc += len([v for v in release.values() if v == 1])
+            alltime_dec += len([v for v in release.values() if v == -1])
         alltime_total = alltime_inc - alltime_dec
 
         irc.reply("Karma for %s has been increased %i times and "
@@ -1195,7 +1195,7 @@ class Fedora(callbacks.Plugin):
 
         # Now invert the dict so we can lookup the argued symbol.
         # Yes, this is vulnerable to collisions.
-        symbols = dict([(sym, name) for name, sym in list(symbols.items())])
+        symbols = dict([(sym, name) for name, sym in symbols.items()])
 
         # These aren't user-facing topics, so drop 'em.
         del symbols['LOG']
@@ -1314,7 +1314,7 @@ class Utils(object):
     def sparkline(cls, values):
         bar = '▁▂▃▄▅▆▇█'
         barcount = len(bar) - 1
-        values = list(map(float, values))
+        values = [float(v) for v in values]
         mn, mx = min(values), max(values)
         extent = mx - mn
 
