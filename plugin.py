@@ -1053,15 +1053,12 @@ class Fedora(callbacks.Plugin):
             if 'irc.freenode.net' in location
         ]), key=itemgetter(0))
 
-        test, meetings = tee(meetings)
-        try:
-            next(test)
-        except StopIteration:
+        if not meetings:
             response = "There are no meetings scheduled at all."
             irc.reply(response.encode('utf-8'))
             return
 
-        for date, meeting in islice(meetings, 0, 5):
+        for date, meeting in meetings[:5]:
             response = "In #%s is %s (starting %s)" % (
                 meeting['meeting_location'].split('@')[0].strip(),
                 meeting['meeting_name'],
@@ -1079,15 +1076,12 @@ class Fedora(callbacks.Plugin):
         channel = channel.strip('#').split('@')[0]
         meetings = sorted(self._future_meetings(channel), key=itemgetter(0))
 
-        test, meetings = tee(meetings)
-        try:
-            next(test)
-        except StopIteration:
+        if not meetings:
             response = "There are no meetings scheduled for #%s." % channel
             irc.reply(response.encode('utf-8'))
             return
 
-        for date, meeting in islice(meetings, 0, 3):
+        for date, meeting in meetings[:3]:
             response = "In #%s is %s (starting %s)" % (
                 channel,
                 meeting['meeting_name'],
