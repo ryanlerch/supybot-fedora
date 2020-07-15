@@ -18,7 +18,7 @@ First, create the vagrant setup with `vagrant up`
 Once completed, you will be able to connect from your host to the IRC server
 now running the the Vagrant guest VM, at "irc.supybot.test"
 
-Next, ssh into the vagrant guest with `vagrant ssh`, and start the supybot 
+Next, ssh into the vagrant guest with `vagrant ssh`, and start the supybot
 with `supybot /home/vagrant/supybot-fedora/supybot-fedora.conf`
 
 Then, in your IRC client, set your nick to "vagrant"
@@ -37,5 +37,3 @@ Next, set your FAS credentials in the plugin's config with:
 
 Then load the plugin again with:
 `/msg supybot load Fedora`
-
-
