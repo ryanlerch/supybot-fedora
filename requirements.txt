@@ -1,4 +1,5 @@
 python-fedora>=0.3.7
+supybot
 requests
 arrow
 packagedb-cli
@@ -6,4 +7,3 @@ pyyaml
 fedmsg
 simplejson
 pytz
-sgmllib3k
